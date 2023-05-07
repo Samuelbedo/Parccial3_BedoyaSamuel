@@ -26,6 +26,7 @@ builder.Services.AddIdentity<User, IdentityRole>(io =>
 
 builder.Services.AddTransient<SeederDb>();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
+builder.Services.AddScoped<IDropDownListsHelper, DropDownListsHelper>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
