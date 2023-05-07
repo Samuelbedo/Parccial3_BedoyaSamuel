@@ -30,6 +30,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Servicios para su vehiculo</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Estado de su vehiculo</a>
+                            </li>
                         }
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
