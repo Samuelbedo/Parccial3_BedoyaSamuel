@@ -1,9 +1,9 @@
+using Parcial3_BedoyaSamuel.DAL.Entities;
+
 namespace Parcial3_BedoyaSamuel.Models
 {
-    public class ErrorViewModel
+    public class VehicleViewModel : Vehicle    
     {
-        public string? RequestId { get; set; }
-
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public Guid ServiceId { get; set; }
     }
 }
