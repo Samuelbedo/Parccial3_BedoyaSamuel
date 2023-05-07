@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Parcial3_BedoyaSamuel.DAL.Entities;
+using Parcial3_BedoyaSamuel.Models;
 
 namespace Parcial3_BedoyaSamuel.Helpers
 {
@@ -14,6 +15,10 @@ namespace Parcial3_BedoyaSamuel.Helpers
         Task AddUserToRoleAsync(User user, string roleName);//agrega el usuario a un rol
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);//ya esta relacionado con rol o no
+
+        Task<SignInResult> LoginAsync(LoginViewModel loginViewModel);//logea epicamente
+
+        Task LogoutAsync();//deslogea epicamente
 
     }
 }

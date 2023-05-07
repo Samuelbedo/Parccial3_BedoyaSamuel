@@ -19,11 +19,12 @@ namespace Parcial3_BedoyaSamuel.DAL
 
         public async Task SeederAsync()
         {
-            var email = "SamuelBedoya@yopmail.com";
+
             await _context.Database.EnsureCreatedAsync();
             await PopulateServicesAsync();
             await PopulateRolesAsync();
-            await PopulateUserAsync(email);
+            await PopulateUserAsync("1044210047", "Admin", "Role", "admin_role@yopmail.com", UserType.Admin);
+            await PopulateUserAsync("1034566432", "Client", "Role", "client_role@yopmail.com", UserType.Client);
 
             await _context.SaveChangesAsync();
         }
@@ -47,7 +48,7 @@ namespace Parcial3_BedoyaSamuel.DAL
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
             await _userHelper.CheckRoleAsync(UserType.Client.ToString());
         }
-        private async Task PopulateUserAsync(string email)
+        private async Task PopulateUserAsync(string document, string firstName, string lastName, string email, UserType userType)
         {
             User user = await _userHelper.GetUserAsync(email);
 
@@ -55,16 +56,16 @@ namespace Parcial3_BedoyaSamuel.DAL
             {
                 user = new User
                 {
-                    Document = "1044210047",
-                    FirstName = "Samuel",
-                    LastName = "Bedoya",
+                    Document = document,
+                    FirstName = firstName,
+                    LastName = lastName,
                     Email = email,
                     UserName = email,
-                    UserType = UserType.Admin,
+                    UserType = userType,
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
-                await _userHelper.AddUserToRoleAsync(user, UserType.Admin.ToString());
+                await _userHelper.AddUserToRoleAsync(user, userType.ToString());
             }
         }
 
