@@ -41,7 +41,7 @@ namespace Parcial3_BedoyaSamuel.Services
                  .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<bool> IsUserInRoleAsync(User user, string roleName)
+        public async Task<bool> IsUserInRoleAsync(User user, string roleName)//:)
         {
             return await _userManager.IsInRoleAsync(user, roleName);
         }
