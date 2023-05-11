@@ -35,21 +35,6 @@ namespace Parcial3_BedoyaSamuel.Controllers
             return service;
         }
 
-        private async Task<Vehicle> GetVehicleById(Guid? vehicleId)
-        {
-            return await _context.Vehicles
-                .Include(s => s.Services)
-                .Include(c => c.VehicleDetails)
-                .FirstOrDefaultAsync(c => c.Id == vehicleId);
-        }
-
-        private async Task<VehicleDetails> GetVehicleDetailsById(Guid? vehicleDetailsId)
-        {
-            return await _context.VehiclesDetails
-                .Include(s => s.Vehicle)
-                .FirstOrDefaultAsync(c => c.Id == vehicleDetailsId);
-        }
-
         #endregion
 
         #region Service actions
