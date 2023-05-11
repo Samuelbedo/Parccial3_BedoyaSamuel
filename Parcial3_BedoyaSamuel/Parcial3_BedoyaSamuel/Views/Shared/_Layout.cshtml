@@ -31,7 +31,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="Index">Servicios para su vehiculo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Estado de su vehiculo</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="ServiceStatus">Estado de su vehiculo</a>
                             </li>
                         }
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))

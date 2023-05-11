@@ -149,7 +149,7 @@ namespace Parcial3_BedoyaSamuel.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ServiceState()
+        public async Task<IActionResult> ServiceStatus()
         {
             return View(await _context.VehiclesDetails.Include(vehicleDetails => vehicleDetails.Vehicle).ThenInclude(vehicle => vehicle.Services).ToListAsync());
         }
