@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Parcial3_BedoyaSamuel.DAL.Entities.VehicleDetails>
+
+@{
+    ViewData["Title"] = "Servicios en proceso";
+}
+
+<h1>Servicios en proceso</h1>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="ServiceTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Vehicle.NumberPlate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Vehicle.Owner)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Vehicle.Services.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreationDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DeliveryDate)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Vehicle.NumberPlate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Vehicle.Owner)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Vehicle.Services.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                                </td>
+                                <td>
+                                    <a asp-action="EditProcessService" asp-route-vehicleDetailId="@item.Id" class="btn btn-outline-warning">Editar  </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
+}

@@ -35,16 +35,26 @@ namespace Parcial3_BedoyaSamuel.Controllers
             return service;
         }
 
+        private async Task<VehicleDetails> GetVehicleDetailById(Guid? vehicleDetailId)
+        {
+            VehicleDetails vehicleDetail = await _context.VehiclesDetails
+                .Include(vehicleDetail => vehicleDetail.Vehicle)
+                .ThenInclude(vehicle => vehicle.Services)
+                .FirstOrDefaultAsync(vehicleDetail => vehicleDetail.Id == vehicleDetailId);
+            return vehicleDetail;
+        }
+
         #endregion
 
         #region Service actions
+        [Authorize(Roles = "Client")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Services
                 .Include(v => v.Vehicles)
                 .ToListAsync());
         }
-
+        [Authorize(Roles = "Client")]
         public async Task<IActionResult> AddService()
         {
             AddServiceViewModel addServiceViewModel = new()
@@ -97,6 +107,51 @@ namespace Parcial3_BedoyaSamuel.Controllers
                 }
             }
             return View(addServiceViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProcessService()
+        {
+            return View(await _context.VehiclesDetails.Include(vehicleDetails => vehicleDetails.Vehicle).ThenInclude(vehicle => vehicle.Services).ToListAsync());
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditProcessService(Guid? vehicleDetailId)
+        {
+            Console.WriteLine(vehicleDetailId);
+            if (vehicleDetailId == null || _context.VehiclesDetails == null)
+            {
+                return NotFound();
+            }
+
+            var vehicleDetail = await GetVehicleDetailById(vehicleDetailId);
+            if (vehicleDetail == null)
+            {
+                return NotFound();
+            }
+            return View(vehicleDetail);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProcessService(Guid vehicleDetailId, VehicleDetails vehicleDetail)
+        {
+            if (vehicleDetailId != vehicleDetail.Id)
+            {
+                return NotFound();
+            }
+
+            _context.Update(vehicleDetail);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(ProcessService));
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ServiceState()
+        {
+            return View(await _context.VehiclesDetails.Include(vehicleDetails => vehicleDetails.Vehicle).ThenInclude(vehicle => vehicle.Services).ToListAsync());
         }
 
         #endregion

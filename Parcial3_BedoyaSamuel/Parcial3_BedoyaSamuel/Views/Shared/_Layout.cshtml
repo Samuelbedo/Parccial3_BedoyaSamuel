@@ -37,7 +37,7 @@
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Servicios en proceso</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="ProcessService">Servicios en proceso</a>
                             </li>
                         }
                     </ul>
